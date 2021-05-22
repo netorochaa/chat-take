@@ -4,10 +4,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace chat_take.UnitTest
 {
     [TestClass]
-    public class CreateUserTest
+    public class NoCreateBlankNameUserTest
     {
         private UserService userService;
         private bool result;
+
         [TestInitialize]
         public void Initialize()
         {
