@@ -23,7 +23,7 @@ namespace chat_take
                     UserService userService = new UserService();
                     string value = Console.ReadLine();
 
-                    if (!connected && userService.Exists(value))
+                    if (!connected && userService.ExistsOrInvalid(value))
                         Console.Write("Este nick não esta disponível. Informe outro:");
                     else
                     {

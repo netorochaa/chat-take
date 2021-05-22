@@ -3,22 +3,20 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using chat_take.Config;
 
 namespace chat_take.Service
 {
     public class UserService
     {
-        private const string api = "https://localhost:44363/";
-        private const string path = "api/User";
-
         //Verifica se o nome existe ou é válido
-        public bool Exists(string name)
+        public bool ExistsOrInvalid(string name)
         {
             if (nameIsValid((name.Trim())))
             {
                 User user = new User(name);
                 WebClient client = new WebClient();
-                string strJson = client.DownloadString(api + path);
+                string strJson = client.DownloadString(Api.url + Api.path_user);
 
                 dynamic dObj = JsonConvert.DeserializeObject<dynamic>(strJson);
 
@@ -36,8 +34,8 @@ namespace chat_take.Service
         public async Task<User> CreateUserAsync(string name)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(api);
-            HttpResponseMessage response = await client.PostAsync(path + "?name=" + name, null);
+            client.BaseAddress = new Uri(Api.url);
+            HttpResponseMessage response = await client.PostAsync(Api.path_user + "?name=" + name, null);
 
             string data = await response.Content.ReadAsStringAsync();
             User user = JsonConvert.DeserializeObject<User>(data);

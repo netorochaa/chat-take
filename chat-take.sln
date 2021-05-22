@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chat-take", "chat-take\chat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{214030BA-C60A-422B-B148-384BA20FDEFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChatTake", "TestChatTake\TestChatTake.csproj", "{524104F3-B604-4B14-885A-395CF509897D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chat-take.UnitTest", "chat-take.UnitTest\chat-take.UnitTest.csproj", "{5714DC49-C9B0-457A-B16F-D96B80F89D10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{214030BA-C60A-422B-B148-384BA20FDEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214030BA-C60A-422B-B148-384BA20FDEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{214030BA-C60A-422B-B148-384BA20FDEFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{524104F3-B604-4B14-885A-395CF509897D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{524104F3-B604-4B14-885A-395CF509897D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{524104F3-B604-4B14-885A-395CF509897D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{524104F3-B604-4B14-885A-395CF509897D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5714DC49-C9B0-457A-B16F-D96B80F89D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5714DC49-C9B0-457A-B16F-D96B80F89D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5714DC49-C9B0-457A-B16F-D96B80F89D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5714DC49-C9B0-457A-B16F-D96B80F89D10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

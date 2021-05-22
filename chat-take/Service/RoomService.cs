@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
+using chat_take.Config;
 
 namespace chat_take.Service
 {
     public class RoomService
     {
-        private const string api = "https://localhost:44363/";
-        private const string path = "api/Room";
-        private const string path_message = "api/Message";
-
         private Thread receiveThread;
         private bool Connected;
         private int room_id;
@@ -45,7 +42,7 @@ namespace chat_take.Service
 
             while (Connected)
             {
-                string strJson      = client.DownloadString(api + path_message + "/" + room_id);
+                string strJson      = client.DownloadString(Api.url + Api.path_message + "/" + room_id);
                 dynamic dMessageObj = JsonConvert.DeserializeObject<dynamic>(strJson);
 
                 for (int i = 0; i < dMessageObj.Count; i++)
@@ -67,9 +64,9 @@ namespace chat_take.Service
         public async void Send(string message, int user_id, int room_id)
         {
             HttpClient client   = new HttpClient();
-            client.BaseAddress  = new Uri(api);
+            client.BaseAddress  = new Uri(Api.url);
             string path_uri     = Uri.UnescapeDataString("?message=" + message + "&user_id=" + user_id + "&room_id=" + room_id);
-            _ = await client.PostAsync(path_message + path_uri, null);
+            _ = await client.PostAsync(Api.path_message + path_uri, null);
         }
     }
 }
