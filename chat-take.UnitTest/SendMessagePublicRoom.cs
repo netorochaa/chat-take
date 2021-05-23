@@ -28,8 +28,8 @@ namespace chat_take.UnitTest
 
         private async Task Act()
         {
-            string nameValidUser = RandomString(5);
-            message = await messageService.Send(RandomString(10), 1, 0, 1); // 1 - admin, 0 - null, 1 - salaPublica
+            string validMessage = RandomString(10);
+            message = await messageService.Send(validMessage, 1, 1, 0); // 1 - admin, 0 - null, 1 - salaPublica
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace chat_take.UnitTest
 
         private string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*()";
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
