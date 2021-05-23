@@ -67,9 +67,16 @@ namespace chat_take.Service
         public void SendMessage(string message, int user_id, int room_id, int private_user_id)
         {
             MessageService msg = new MessageService();
-            _ = msg.Send(message, user_id, room_id, private_user_id);
+            if(msg.ValidMessage(message))
+                _ = msg.Send(message, user_id, room_id, private_user_id);
         }
 
+        public void ListUsersRoom(UserService userService)
+        {
+            List<User> users = userService.GetList();
+            foreach (var item in users)
+                Console.WriteLine(item.id + " - " + item.name);
+        }
 
         private Room GetRoom(int id)
         {

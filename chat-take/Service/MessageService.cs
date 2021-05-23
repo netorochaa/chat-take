@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using chat_take.Config;
 using Newtonsoft.Json;
@@ -22,6 +20,15 @@ namespace chat_take.Service
             Message messageResponse = JsonConvert.DeserializeObject<Message>(data);
 
             return messageResponse;
+        }
+
+        public bool ValidMessage(string message)
+        {
+            string caracterMenu = message.Substring(0, 1);
+            if (string.IsNullOrEmpty(message) || caracterMenu.Equals("/")) 
+                return false;
+            else 
+                return true;
         }
     }
 

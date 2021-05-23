@@ -29,7 +29,7 @@ namespace chat_take.UnitTest
         private async Task Act()
         {
             string validMessage = RandomString(10);
-            message = await messageService.Send(validMessage, 1, 1, 0); // 1 - admin, 0 - null, 1 - salaPublica
+            message = await messageService.Send(validMessage, 1, 1, 1); // 1 - admin, 1 - salaPublica, 0 - admin
         }
 
         [TestMethod]

@@ -40,10 +40,14 @@ namespace chat_take
                             {
                                 string yourMessage = Console.ReadLine();
 
-                                if (yourMessage == "/exit")
+                                if (yourMessage == "/sair")
                                 {
                                     connected = false;
                                     continue;
+                                }
+                                else if(yourMessage == "/usuarios")
+                                {
+                                    roomService.ListUsersRoom(userService);
                                 }
                                 roomService.SendMessage(yourMessage, user.id, roomService.room.id, 0); // 1 - salaPublica
                             }
