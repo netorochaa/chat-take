@@ -12,15 +12,19 @@ namespace chat_take.Service
     {
         private Thread receiveThread;
         private bool Connected;
-        private int room_id;
+        public Room room;
+        private int user_id;
 
         // Intancia nova thread para receber mennsagens da sala
-        public bool Connect(int room_id)
+        public bool Connect(int room_id, int user_id)
         {
-            this.room_id = room_id;
+            Room room    = GetRoom(room_id);
+            this.room    = room;
+            this.user_id = user_id;
+
             try
             {
-                receiveThread              = new Thread(new ThreadStart(Receive));
+                receiveThread = new Thread(new ThreadStart(ReceiveMessagesRoom));
                 receiveThread.IsBackground = true;
                 receiveThread.Start();
 
@@ -35,20 +39,20 @@ namespace chat_take.Service
             }
         }
 
-        public void Receive()
+        public void ReceiveMessagesRoom()
         {
-            WebClient client        = new WebClient();
-            List<string> messages   = new List<string>();
+            WebClient client = new WebClient();
+            List<string> messages = new List<string>();
 
             while (Connected)
             {
-                string strJson      = client.DownloadString(Api.url + Api.path_message + "/" + room_id);
+                string strJson = client.DownloadString(Api.url + Api.path_message + "?room_id=" + room.id + "&private_user_id=" + user_id);
                 dynamic dMessageObj = JsonConvert.DeserializeObject<dynamic>(strJson);
 
                 for (int i = 0; i < dMessageObj.Count; i++)
                 {
-                    string userName     = dMessageObj[i]["user"]["name"];
-                    string message      = dMessageObj[i]["message"];
+                    string userName = dMessageObj[i]["user"]["name"];
+                    string message = dMessageObj[i]["message"];
                     string finalMessage = userName + " disse: " + message;
                     if (!messages.Contains(finalMessage))
                     {
@@ -60,13 +64,28 @@ namespace chat_take.Service
             Connected = false;
         }
 
-        //Envia menssagem para a sala
-        public async void Send(string message, int user_id, int room_id)
+        public void SendMessage(string message, int user_id, int room_id, int private_user_id)
         {
-            HttpClient client   = new HttpClient();
-            client.BaseAddress  = new Uri(Api.url);
-            string path_uri     = Uri.UnescapeDataString("?message=" + message + "&user_id=" + user_id + "&room_id=" + room_id);
-            _ = await client.PostAsync(Api.path_message + path_uri, null);
+            MessageService msg = new MessageService();
+            _ = msg.Send(message, user_id, room_id, private_user_id);
         }
+
+
+        private Room GetRoom(int id)
+        {
+            WebClient client = new WebClient();
+            string strJson = client.DownloadString(Api.url + Api.path_room + "?id=" + id);
+
+            Room room = JsonConvert.DeserializeObject<Room>(strJson);
+
+            return room;
+        }
+    }
+
+    public class Room
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+
     }
 }

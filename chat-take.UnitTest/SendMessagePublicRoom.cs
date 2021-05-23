@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace chat_take.UnitTest
 {
     [TestClass]
-    public class CreateValidUserTest
+    public class SendMessagePublicRoom
     {
-        private UserService userService;
-        private User user;
+        private MessageService messageService;
+        private Message message;
         private Random random;
 
         [TestInitialize]
@@ -22,20 +22,20 @@ namespace chat_take.UnitTest
 
         private void Arrange()
         {
-            userService = new UserService();
+            messageService = new MessageService();
             random = new Random();
         }
 
         private async Task Act()
         {
             string nameValidUser = RandomString(5);
-            user = await userService.CreateUserAsync(nameValidUser);
+            message = await messageService.Send(RandomString(10), 1, 0, 1); // 1 - admin, 0 - null, 1 - salaPublica
         }
 
         [TestMethod]
-        public void WhenValidUser_returnUser()
+        public void WhenSendMessagePublicRoom_returnMessage()
         {
-            Assert.IsNotNull(user);
+            Assert.IsNotNull(message);
         }
 
         private string RandomString(int length)

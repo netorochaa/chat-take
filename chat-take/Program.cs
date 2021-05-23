@@ -34,7 +34,7 @@ namespace chat_take
                         if (user != null)
                         {
                             RoomService roomService = new RoomService();
-                            connected = roomService.Connect(1); // 1 - salaPublica
+                            connected = roomService.Connect(1, user.id); // 1 - salaPublica
 
                             while (connected)
                             {
@@ -45,7 +45,7 @@ namespace chat_take
                                     connected = false;
                                     continue;
                                 }
-                                roomService.Send(yourMessage, user.id, 1); // 1 - salaPublica
+                                roomService.SendMessage(yourMessage, user.id, roomService.room.id, 0); // 1 - salaPublica
                             }
                         }
                         Console.WriteLine("Desconectado. Até mais!!");
