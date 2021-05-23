@@ -51,9 +51,15 @@ namespace chat_take.Service
 
                 for (int i = 0; i < dMessageObj.Count; i++)
                 {
-                    string userName = dMessageObj[i]["user"]["name"];
-                    string message = dMessageObj[i]["message"];
-                    string finalMessage = userName + " disse: " + message;
+                    string userName         = dMessageObj[i]["user"]["name"];
+                    string message          = dMessageObj[i]["message"];
+                    string privateUserName  = dMessageObj[i]["private_user"] != null 
+                                                ? dMessageObj[i]["private_user"]["name"]
+                                                : null;
+
+                    string finalMessage = privateUserName == null 
+                                            ? userName + " disse: " + message
+                                            : userName + " disse no privado para " + privateUserName + ": " + message;
                     if (!messages.Contains(finalMessage))
                     {
                         messages.Add(finalMessage);
@@ -74,6 +80,7 @@ namespace chat_take.Service
         public void ListUsersRoom(UserService userService)
         {
             List<User> users = userService.GetList();
+            Console.WriteLine("ID - NOME");
             foreach (var item in users)
                 Console.WriteLine(item.id + " - " + item.name);
         }

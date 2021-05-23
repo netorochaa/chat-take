@@ -7,7 +7,7 @@ using System.Text;
 namespace chat_take.UnitTest
 {
     [TestClass]
-    public class NoSendMessageCmdsMenuTest
+    public class SendPrivateMessageUser
     {
         private MessageService messageService;
         private bool result;
@@ -18,7 +18,6 @@ namespace chat_take.UnitTest
             Arrange();
             Act();
         }
-
         private void Arrange()
         {
             messageService = new MessageService();
@@ -26,13 +25,15 @@ namespace chat_take.UnitTest
 
         private void Act()
         {
-            result = messageService.ValidMessage("/exit");
+            result = messageService.ValidCommandPrivateMsg("/p 1 Teste");
         }
 
         [TestMethod]
-        public void WhenSendCommandMenu_returnFalse()
+        public void WhenSendPrivateMessage_returnTrue()
         {
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
     }
+
+    
 }

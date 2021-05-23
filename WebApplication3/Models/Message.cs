@@ -19,7 +19,7 @@
         {
             this.message = message;
             this.user = user;
-            this.private_user = user;
+            this.private_user = private_user;
             this.room = room;
         }
 

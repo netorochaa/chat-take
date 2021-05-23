@@ -65,7 +65,8 @@ namespace WebApplication3.Repository
             MySqlDataReader reader = query.ExecuteReader();
 
             while (reader.Read())
-                listUsers.Add(new User(reader["name"].ToString()));
+                listUsers.Add(new User( Convert.ToInt32(reader["id"]), 
+                                        reader["name"].ToString()));
 
             conn.Close();
             return listUsers;

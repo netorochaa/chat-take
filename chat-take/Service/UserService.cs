@@ -17,7 +17,7 @@ namespace chat_take.Service
             {
                 List<User> users = GetList();
                 foreach (var item in users)
-                    if(item.name.Equals(name)) return true;
+                    if(item.name.Equals(name.Trim())) return true;
                                   
                 return false;
             }
@@ -27,12 +27,12 @@ namespace chat_take.Service
         //Cria usuário
         public async Task<User> CreateUserAsync(string name)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(Api.url);
-            HttpResponseMessage response = await client.PostAsync(Api.path_user + "?name=" + name, null);
+            HttpClient client            = new HttpClient();
+            client.BaseAddress           = new Uri(Api.url);
+            HttpResponseMessage response = await client.PostAsync(Api.path_user + "?name=" + name.Trim(), null);
 
             string data = await response.Content.ReadAsStringAsync();
-            User user = JsonConvert.DeserializeObject<User>(data);
+            User user   = JsonConvert.DeserializeObject<User>(data);
 
             return user;
         }
@@ -41,15 +41,15 @@ namespace chat_take.Service
         {
             List<User> users = new List<User>();
             WebClient client = new WebClient();
-            string strJson = client.DownloadString(Api.url + Api.path_user);
+            string strJson   = client.DownloadString(Api.url + Api.path_user);
 
             dynamic dObj = JsonConvert.DeserializeObject<dynamic>(strJson);
 
             for (int i = 0; i < dObj.Count; i++)
             {
-                User user   = new User();
-                user.id     = Convert.ToInt32(dObj[i]["id"]);
-                user.name   = (string) dObj[i]["name"];
+                User user = new User();
+                user.id   = Convert.ToInt32(dObj[i]["id"]);
+                user.name = (string) dObj[i]["name"];
 
                 users.Add(user);
             }

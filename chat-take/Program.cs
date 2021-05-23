@@ -29,7 +29,7 @@ namespace chat_take
                     {
                         var user = await userService.CreateUserAsync(value);
                         Console.WriteLine(user != null 
-                                            ? "Você acabou de entrar na #salaPublica" 
+                                            ? "Você acabou de entrar na #salaPublica, digite /ajuda para listar os comandos" 
                                             : "Algo deu errado");
                         if (user != null)
                         {
@@ -45,10 +45,17 @@ namespace chat_take
                                     connected = false;
                                     continue;
                                 }
-                                else if(yourMessage == "/usuarios")
-                                {
+                                else if (yourMessage == "/usuarios")
                                     roomService.ListUsersRoom(userService);
+                                else if (yourMessage == "/ajuda")
+                                {
+                                    Console.WriteLine("MENU DE OPÇÕES");
+                                    Console.WriteLine("/p [id do usuario] [mensagem] - Enviar uma mensagem privad \r\n" +
+                                                      "/sair                         - Sair do chat\r\n" +
+                                                      "/usuarios                     - Listar usuários da sala\r\n");
                                 }
+                                    
+
                                 roomService.SendMessage(yourMessage, user.id, roomService.room.id, 0); // 1 - salaPublica
                             }
                         }
