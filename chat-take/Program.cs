@@ -21,7 +21,7 @@ namespace chat_take
                 while (true)
                 {
                     UserService userService = new UserService();
-                    string value = Console.ReadLine();
+                    string value            = Console.ReadLine();
 
                     if (!connected && userService.ExistsOrInvalid(value))
                         Console.Write("Este nick não esta disponível. Informe outro:");
@@ -41,22 +41,13 @@ namespace chat_take
                                 string yourMessage = Console.ReadLine();
 
                                 if (yourMessage == "/sair")
-                                {
                                     connected = false;
-                                    continue;
-                                }
                                 else if (yourMessage == "/usuarios")
                                     roomService.ListUsersRoom(userService);
                                 else if (yourMessage == "/ajuda")
-                                {
-                                    Console.WriteLine("MENU DE OPÇÕES");
-                                    Console.WriteLine("/p [id do usuario] [mensagem] - Enviar uma mensagem privad \r\n" +
-                                                      "/sair                         - Sair do chat\r\n" +
-                                                      "/usuarios                     - Listar usuários da sala\r\n");
-                                }
-                                    
+                                    roomService.ShowMenu();
 
-                                roomService.SendMessage(yourMessage, user.id, roomService.room.id, 0); // 1 - salaPublica
+                                roomService.SendMessage(yourMessage, user.id, roomService.room.id, 0); // 0 - null private_user_id
                             }
                         }
                         Console.WriteLine("Desconectado. Até mais!!");

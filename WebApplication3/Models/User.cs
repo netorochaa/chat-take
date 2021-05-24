@@ -11,8 +11,8 @@
         }
         public User(int id, string name)
         {
-            this.id     = id;
-            this.name   = name;
+            this.id   = id;
+            this.name = name;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebApplication3.Repository
             MySqlConnection conn = Config.conn();
 
             int id;
-            var sql = "INSERT INTO user(name) VALUES(@value); select last_insert_id();";
+            var sql    = "INSERT INTO user(name) VALUES(@value); select last_insert_id();";
             var insert = new MySqlCommand(sql, conn);
             try
             {
@@ -34,9 +34,9 @@ namespace WebApplication3.Repository
 
         public User get(int id)
         {
-            User user = null;
+            User user            = null;
             MySqlConnection conn = Config.conn();
-            MySqlCommand query = conn.CreateCommand();
+            MySqlCommand query   = conn.CreateCommand();
 
             query.CommandText = "SELECT * FROM user WHERE id = @id";
             query.Parameters.AddWithValue("@id", id);
@@ -57,16 +57,16 @@ namespace WebApplication3.Repository
         {
             List<User> listUsers = new List<User>();
             MySqlConnection conn = Config.conn();
-            MySqlCommand query = conn.CreateCommand();
+            MySqlCommand query   = conn.CreateCommand();
 
-            query.CommandText = "SELECT * FROM user"; //WHERE id = @id";
+            query.CommandText = "SELECT * FROM user";
 
             conn.Open();
             MySqlDataReader reader = query.ExecuteReader();
 
             while (reader.Read())
-                listUsers.Add(new User( Convert.ToInt32(reader["id"]), 
-                                        reader["name"].ToString()));
+                listUsers.Add(new User(Convert.ToInt32(reader["id"]), 
+                                       reader["name"].ToString()));
 
             conn.Close();
             return listUsers;

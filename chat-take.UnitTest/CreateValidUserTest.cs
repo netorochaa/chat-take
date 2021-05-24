@@ -23,13 +23,13 @@ namespace chat_take.UnitTest
         private void Arrange()
         {
             userService = new UserService();
-            random = new Random();
+            random      = new Random();
         }
 
         private async Task Act()
         {
             string nameValidUser = RandomString(5);
-            user = await userService.CreateUserAsync(nameValidUser);
+            user                 = await userService.CreateUserAsync(nameValidUser);
         }
 
         [TestMethod]

@@ -15,9 +15,9 @@ namespace WebApplication3.Repository
 
         public Room get(int id)
         {
-            Room room = null;
+            Room room            = null;
             MySqlConnection conn = Config.conn();
-            MySqlCommand query = conn.CreateCommand();
+            MySqlCommand query   = conn.CreateCommand();
 
             query.CommandText = "SELECT * FROM room WHERE id = @id";
             query.Parameters.AddWithValue("@id", id);

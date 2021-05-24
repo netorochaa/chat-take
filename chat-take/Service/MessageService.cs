@@ -12,12 +12,13 @@ namespace chat_take.Service
         //Envia menssagem pública ou privada
         public async Task<Message> Send(string message, int user_id, int room_id, int private_user_id)
         {
-            //Se validado, envia mensagem privada
+            //Se validada, envia mensagem privada
             string[] messageSplit = message.Split(' ');
+
             if (messageSplit.Length > 2 && messageSplit[0] == "/p")
             {
                 private_user_id = Convert.ToInt32(messageSplit[1]);
-                message         = RemoveCmdMPrivateMessage(messageSplit);
+                message         = RemoveCommandPrivateMessage(messageSplit);
             }
 
             HttpClient client            = new HttpClient();
@@ -61,7 +62,7 @@ namespace chat_take.Service
             return true;
         }
 
-        private string RemoveCmdMPrivateMessage(string[] messageSplit)
+        private string RemoveCommandPrivateMessage(string[] messageSplit)
         {
             var lista    = messageSplit.ToList();
             lista.RemoveAt(0);

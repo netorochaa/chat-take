@@ -9,14 +9,14 @@ namespace WebApplication3.Controllers
     {
         public List<Message> Get(int room_id, int private_user_id)
         {
-            MessageRepository repository = new MessageRepository();
-            User user = null;
+            MessageRepository repository  = new MessageRepository();
+            UserRepository userRepository = new UserRepository();
+            User user                     = null;
+
             if (private_user_id != 0)
-            { 
-                UserRepository userRepository = new UserRepository();
                 user = userRepository.get(private_user_id);
-            }
-            return repository.list(room_id, user); // room_id
+
+            return repository.list(room_id, user);
         }
 
         public Message Post(string message, int user_id, int room_id, int private_user_id)
@@ -24,11 +24,13 @@ namespace WebApplication3.Controllers
             UserRepository userRepository       = new UserRepository();
             RoomRepository roomRepository       = new RoomRepository();
             MessageRepository messageRepository = new MessageRepository();
-            Message messageRoom = null;
+            Message messageRoom                 = null;
 
-            User user = userRepository.get(user_id);
-            User private_user = private_user_id != 0 ? userRepository.get(private_user_id) : null;
-            Room room = roomRepository.get(room_id);
+            User user         = userRepository.get(user_id);
+            Room room         = roomRepository.get(room_id);
+            User private_user = private_user_id != 0 
+                                ? userRepository.get(private_user_id) 
+                                : null;
 
             //Valida mensagem
             if (!message.Equals(null) || !message.Equals(string.Empty))

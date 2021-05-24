@@ -11,16 +11,16 @@
         public Message(string message, User user, Room room)
         {
             this.message = message;
-            this.user = user;
-            this.room = room;
+            this.user    = user;
+            this.room    = room;
         }
 
         public Message(string message, User user, User private_user, Room room)
         {
-            this.message = message;
-            this.user = user;
+            this.message      = message;
+            this.user         = user;
             this.private_user = private_user;
-            this.room = room;
+            this.room         = room;
         }
 
         public Message(){ }

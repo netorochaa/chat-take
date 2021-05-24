@@ -23,13 +23,13 @@ namespace chat_take.UnitTest
         private void Arrange()
         {
             messageService = new MessageService();
-            random = new Random();
+            random         = new Random();
         }
 
         private async Task Act()
         {
             string validMessage = RandomString(10);
-            message = await messageService.Send(validMessage, 1, 1, 1); // 1 - admin, 1 - salaPublica, 0 - admin
+            message             = await messageService.Send(validMessage, 1, 1, 1); // 1 - admin, 1 - salaPublica, 0 - admin
         }
 
         [TestMethod]

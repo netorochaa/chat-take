@@ -10,12 +10,12 @@ namespace chat_take.Service
 {
     public class RoomService
     {
-        private Thread receiveThread;
-        private bool Connected;
-        public Room room;
-        private int user_id;
+        private Thread  receiveThread;
+        private bool    Connected;
+        public  Room    room;
+        private int     user_id;
 
-        // Intancia nova thread para receber mennsagens da sala
+        // Nova instância de thread para receber mennsagens privadas ou da sala em background enquanto estiver conectado
         public bool Connect(int room_id, int user_id)
         {
             Room room    = GetRoom(room_id);
@@ -41,19 +41,19 @@ namespace chat_take.Service
 
         public void ReceiveMessagesRoom()
         {
-            WebClient client = new WebClient();
+            WebClient client      = new WebClient();
             List<string> messages = new List<string>();
 
             while (Connected)
             {
-                string strJson = client.DownloadString(Api.url + Api.path_message + "?room_id=" + room.id + "&private_user_id=" + user_id);
+                string strJson      = client.DownloadString(Api.url + Api.path_message + "?room_id=" + room.id + "&private_user_id=" + user_id);
                 dynamic dMessageObj = JsonConvert.DeserializeObject<dynamic>(strJson);
 
                 for (int i = 0; i < dMessageObj.Count; i++)
                 {
-                    string userName         = dMessageObj[i]["user"]["name"];
-                    string message          = dMessageObj[i]["message"];
-                    string privateUserName  = dMessageObj[i]["private_user"] != null 
+                    string userName        = dMessageObj[i]["user"]["name"];
+                    string message         = dMessageObj[i]["message"];
+                    string privateUserName = dMessageObj[i]["private_user"] != null 
                                                 ? dMessageObj[i]["private_user"]["name"]
                                                 : null;
 
@@ -68,6 +68,14 @@ namespace chat_take.Service
                 }
             }
             Connected = false;
+        }
+
+        public void ShowMenu()
+        {
+            Console.WriteLine("MENU DE OPÇÕES");
+            Console.WriteLine("/p [id do usuario] [mensagem] - Enviar uma mensagem privad \r\n" +
+                              "/sair                         - Sair do chat\r\n" +
+                              "/usuarios                     - Listar usuários da sala\r\n");
         }
 
         public void SendMessage(string message, int user_id, int room_id, int private_user_id)
@@ -88,7 +96,7 @@ namespace chat_take.Service
         private Room GetRoom(int id)
         {
             WebClient client = new WebClient();
-            string strJson = client.DownloadString(Api.url + Api.path_room + "?id=" + id);
+            string strJson   = client.DownloadString(Api.url + Api.path_room + "?id=" + id);
 
             Room room = JsonConvert.DeserializeObject<Room>(strJson);
 
