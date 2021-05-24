@@ -1,0 +1,6 @@
+Como usar?
+1 - Rode o script WebApplication3\database\chatTakeTest.sql em um banco de dados MySQL (localhost);
+
+2 - Inicie a Web API REST em um servidor IIS ou pelo próprio IIS express do Visual Studio (localhost);
+
+3 - Execute o chat-take.exe (localhost).
