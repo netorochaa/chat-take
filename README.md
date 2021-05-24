@@ -9,7 +9,7 @@ Executável cliente console que permite se conectar ao serviço de bate papo.
 
 ![image](https://user-images.githubusercontent.com/16851619/119344431-09b1be00-bc6e-11eb-9aea-84db29c122ea.png)
 
-✅ Registra apelida único;
+✅ Registra apelido único;
 ✅ Envia mensagem pública;
 ✅ Envia mensagem privada para um determinado usuário;
 ✅ Lista usuários da sala;
